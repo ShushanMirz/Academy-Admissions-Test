@@ -2,6 +2,9 @@ package org.example;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class Applicant {
     private String firstName;
     private String lastName;
@@ -68,7 +71,7 @@ public class Applicant {
         return isWarVeteran;
     }
 
-    public void setisWarVeteran(boolean isWarVeteran) {
+    public void setWarVeteran(boolean isWarVeteran) {
         this.isWarVeteran = isWarVeteran;
     }
 
@@ -77,7 +80,7 @@ public class Applicant {
         return isLessThan16;
     }
 
-    public void setisLessThan16(boolean isLessThan16) {
+    public void setLessThan16(boolean isLessThan16) {
         this.isLessThan16 = isLessThan16;
     }
 
@@ -101,5 +104,9 @@ public class Applicant {
                 ", isLessThan16=" + isLessThan16 +
                 ", courseId='" + courseId + '\'' +
                 '}';
+
+
     }
+
+
 }

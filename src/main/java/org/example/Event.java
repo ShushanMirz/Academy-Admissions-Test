@@ -1,157 +1,212 @@
 package org.example;
 
-import java.time.OffsetDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.List;
-import java.util.stream.Collectors;
 
-public class Event {
-    private static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ISO_OFFSET_DATE_TIME;
-    private String name;
-    private String type;
-    private String description;
-    private Schedule schedule;
-    private Reminder smsReminder;
-    private Reminder emailReminder;
-    private String color;
-    private List<String> interviewers;
+import javax.annotation.Generated;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
-    public static class Schedule {
-        private OffsetDateTime start;
-        private OffsetDateTime end;
 
-        public OffsetDateTime getStart() {
+
+    public class Event {
+
+
+        private String name;
+
+        private String type;
+
+        private String start;
+
+        private String end;
+
+        private String description;
+
+        private String smsReminder;
+
+        private String emailReminder;
+
+        private Integer duration;
+
+        private List<Interviewer> interviewers;
+
+
+        public String getName() {
+            return name;
+        }
+
+        @JsonProperty("name")
+        public void setName(String name) {
+            this.name = name;
+        }
+
+        @JsonProperty("type")
+        public String getType() {
+            return type;
+        }
+
+        @JsonProperty("type")
+        public void setType(String type) {
+            this.type = type;
+        }
+
+        @JsonProperty("start")
+        public String getStart() {
             return start;
         }
 
-        public void setStart(OffsetDateTime start) {
+        @JsonProperty("start")
+        public void setStart(String start) {
             this.start = start;
         }
 
-        public OffsetDateTime getEnd() {
+        @JsonProperty("end")
+        public String getEnd() {
             return end;
         }
 
-        public void setEnd(OffsetDateTime end) {
+        @JsonProperty("end")
+        public void setEnd(String end) {
             this.end = end;
         }
+
+        @JsonProperty("description")
+        public String getDescription() {
+            return description;
+        }
+
+        @JsonProperty("description")
+        public void setDescription(String description) {
+            this.description = description;
+        }
+
+        @JsonProperty("smsReminder")
+        public String getSmsReminder() {
+            return smsReminder;
+        }
+
+        @JsonProperty("smsReminder")
+        public void setSmsReminder(String smsReminder) {
+            this.smsReminder = smsReminder;
+        }
+
+        @JsonProperty("emailReminder")
+        public String getEmailReminder() {
+            return emailReminder;
+        }
+
+        @JsonProperty("emailReminder")
+        public void setEmailReminder(String emailReminder) {
+            this.emailReminder = emailReminder;
+        }
+
+        @JsonProperty("duration")
+        public Integer getDuration() {
+            return duration;
+        }
+
+        @JsonProperty("duration")
+        public void setDuration(Integer duration) {
+            this.duration = duration;
+        }
+
+        @JsonProperty("interviewers")
+        public List<Interviewer> getInterviewers() {
+            return interviewers;
+        }
+
+        @JsonProperty("interviewers")
+        public void setInterviewers(List<Interviewer> interviewers) {
+            this.interviewers = interviewers;
+        }
+
+
+    public class Interval {
+
+        @JsonProperty("start")
+        private String start;
+        @JsonProperty("end")
+        private String end;
+
+        @JsonProperty("start")
+        public String getStart() {
+            return start;
+        }
+
+        @JsonProperty("start")
+        public void setStart(String start) {
+            this.start = start;
+        }
+
+        @JsonProperty("end")
+        public String getEnd() {
+            return end;
+        }
+
+        @JsonProperty("end")
+        public void setEnd(String end) {
+            this.end = end;
+        }
+
     }
 
-    public static class Reminder {
-        private OffsetDateTime date;
-        private String template;
 
-        public OffsetDateTime getDate() {
+    public class Interviewer {
+
+        private String interviewer;
+        private List<Schedule> schedule;
+
+        @JsonProperty("interviewer")
+        public String getInterviewer() {
+            return interviewer;
+        }
+
+        @JsonProperty("interviewer")
+        public void setInterviewer(String interviewer) {
+            this.interviewer = interviewer;
+        }
+
+        @JsonProperty("schedule")
+        public List<Schedule> getSchedule() {
+            return schedule;
+        }
+
+        @JsonProperty("schedule")
+        public void setSchedule(List<Schedule> schedule) {
+            this.schedule = schedule;
+        }
+
+
+    }
+
+
+
+    @Generated("jsonschema2pojo")
+    public class Schedule {
+
+        @JsonProperty("date")
+        private String date;
+        @JsonProperty("intervals")
+        private List<Interval> intervals;
+
+        @JsonProperty("date")
+        public String getDate() {
             return date;
         }
 
-        public void setDate(OffsetDateTime date) {
+        @JsonProperty("date")
+        public void setDate(String date) {
             this.date = date;
         }
 
-        public String getTemplate() {
-            return template;
+        @JsonProperty("intervals")
+        public List<Interval> getIntervals() {
+            return intervals;
         }
 
-        public void setTemplate(String template) {
-            this.template = template;
+        @JsonProperty("intervals")
+        public void setIntervals(List<Interval> intervals) {
+            this.intervals = intervals;
         }
-    }
 
-    public String getName() {
-        return name;
-    }
 
-    public void setName(String name) {
-        this.name = name;
     }
-
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public Schedule getSchedule() {
-        return schedule;
-    }
-
-    public void setSchedule(Schedule schedule) {
-        this.schedule = schedule;
-    }
-
-    public Reminder getSmsReminder() {
-        return smsReminder;
-    }
-
-    public void setSmsReminder(Reminder smsReminder) {
-        this.smsReminder = smsReminder;
-    }
-
-    public Reminder getEmailReminder() {
-        return emailReminder;
-    }
-
-    public void setEmailReminder(Reminder emailReminder) {
-        this.emailReminder = emailReminder;
-    }
-
-    public String getColor() {
-        return color;
-    }
-
-    public void setColor(String color) {
-        this.color = color;
-    }
-
-    public List<String> getInterviewers() {
-        return interviewers;
-    }
-
-    public void setInterviewers(List<String> interviewers) {
-        this.interviewers = interviewers;
-    }
-
-    public Event(String name, String type, String description, Schedule schedule, Reminder smsReminder, Reminder emailReminder, String color, List<String> interviewers) {
-        this.name = name;
-        this.type = type;
-        this.description = description;
-        this.schedule = schedule;
-        this.smsReminder = smsReminder;
-        this.emailReminder = emailReminder;
-        this.color = color;
-        this.interviewers = interviewers;
-    }
-
-    public String toString() {
-        StringBuilder builder = new StringBuilder();
-        builder.append("name: ").append(name).append("\n");
-        builder.append("type: ").append(type).append("\n");
-        builder.append("description: ").append(description).append("\n");
-        builder.append("schedule:\n");
-        builder.append("  start: ").append(schedule.getStart().format(DATE_TIME_FORMATTER)).append("\n");
-        builder.append("  end: ").append(schedule.getEnd().format(DATE_TIME_FORMATTER)).append("\n");
-        builder.append("smsReminder:\n");
-        builder.append("  date: ").append(smsReminder.getDate().format(DATE_TIME_FORMATTER)).append("\n");
-        builder.append("  smsTemplate: ").append(smsReminder.getTemplate()).append("\n");
-        builder.append("emailReminder:\n");
-        builder.append("  date: ").append(emailReminder.getDate().format(DATE_TIME_FORMATTER)).append("\n");
-        builder.append("  emailTemplate: ").append(emailReminder.getTemplate()).append("\n");
-        builder.append("color: ").append(color).append("\n");
-        builder.append("interviewers: ").append(interviewers.stream().collect(Collectors.joining(", "))).append("\n");
-        return builder.toString();
-    }
-
 }
-
-

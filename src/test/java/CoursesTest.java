@@ -1,10 +1,6 @@
-import io.restassured.RestAssured;
-import io.restassured.path.json.JsonPath;
-import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.BeforeSuite;
+
 import org.testng.annotations.Test;
 import org.testng.ITestContext;
-import io.restassured.http.ContentType;
 
 
 import static io.restassured.RestAssured.given;
@@ -14,27 +10,27 @@ public class CoursesTest {
 
     @Test
     public void createCourse(ITestContext context) {
-//        String endpoint = "http://localhost:3000/courses";
-//        String body = """
-//                { "title": "New course",
-//                   "description": "string",
-//                   "resources": {
-//                   "title": "string",
-//                   "url": "string"
-//                       }
-//                  }
-//                """;
-//                given().
-//                        header("Content-Type", "application/json").
-//                        body(body).
-//                when().
-//                        post(endpoint).
-//                        then()
-//                        .log()
-//                        .all()
-//                        .extract()
-//                        .jsonPath().get("message");
-//
+        String endpoint = "http://localhost:3000/courses";
+        String body = """
+                { "title": "New course 2",
+                   "description": "string",
+                   "resources": {
+                   "title": "string",
+                   "url": "https://www.youtube.com/watch?v=e74zROBrIKg"
+                       }
+                  }
+                """;
+                given().
+                        header("Content-Type", "application/json").
+                        body(body).
+                when().
+                        post(endpoint).
+                        then()
+                        .log()
+                        .all()
+                        .extract()
+                        .jsonPath().get("message");
+
 //        context.setAttribute("applicantId", applicantId);
 //        System.out.println(applicantId);
 
