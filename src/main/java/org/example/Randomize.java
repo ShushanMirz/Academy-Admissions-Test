@@ -1,9 +1,12 @@
 package org.example;
-
-
+import io.netty.util.internal.ThreadLocalRandom;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.apache.commons.lang3.RandomUtils;
-
+import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.ZoneOffset;
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Random;
 
 
@@ -16,6 +19,29 @@ public class Randomize {
 
   String rndPhoneInValid = RandomStringUtils.randomNumeric(1000000,9999999);
   int runPhoneValid = RandomUtils.nextInt(10000000,99999999);
+
+  Instant start = LocalDateTime.of(2023, 1, 1, 0, 0, 0).toInstant(ZoneOffset.UTC); // Start date
+  Instant end = LocalDateTime.of(2025, 12, 31, 23, 59, 59).toInstant(ZoneOffset.UTC); // End date
+
+
+  //generate random timestamp
+  String startStr = "2022-01-01T00:00:00.000+04:00"; // Start timestamp
+  String endStr = "2025-12-31T23:59:59.999+04:00"; // End timestamp
+
+  DateTimeFormatter formatter = DateTimeFormatter.ISO_OFFSET_DATE_TIME;
+  ZonedDateTime start1 = ZonedDateTime.parse(startStr, formatter);
+  ZonedDateTime end1 = ZonedDateTime.parse(endStr, formatter);
+
+
+  long startMillis = start1.toInstant().toEpochMilli();
+  long endMillis = end1.toInstant().toEpochMilli();
+  long randomMillis = ThreadLocalRandom.current().nextLong(startMillis, endMillis + 1);
+
+  Instant randomInstant = Instant.ofEpochMilli(randomMillis);
+  ZonedDateTime randomZonedDateTime = randomInstant.atZone(start1.getZone());
+
+  String randomTimestampStr = randomZonedDateTime.format(formatter);
+
 
   String rndWrongNum = RandomStringUtils.randomNumeric(1, 15);
 
@@ -107,4 +133,31 @@ public class Randomize {
   public void setRunPhoneValid(int runPhoneValid) {
     this.runPhoneValid = runPhoneValid;
   }
+
+
+
+  public String getRandomTimestampStr() {
+    return randomTimestampStr;
+  }
+
+  public void setRandomTimestampStr(String randomTimestampStr) {
+    this.randomTimestampStr = randomTimestampStr;
+  }
 }
+
+
+
+// random firstName
+// random lastName
+// random middleName
+// random right email
+// random wrong email
+// random wrong id
+// random right phone
+// random wrong phone
+// random title for phase/event/
+// random description phase
+// random body phase
+// random bool
+
+

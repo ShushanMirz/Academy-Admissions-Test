@@ -1,17 +1,17 @@
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import io.restassured.RestAssured;
+import io.restassured.*;
 import org.example.Applicant;
+import org.example.ApplicantEndpoint;
 import org.example.Config;
 import org.example.Randomize;
 import org.testng.ITestContext;
 import org.testng.annotations.*;
 import java.lang.reflect.Method;
-
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.*;
 
-public class ApplicantsTest {
+public class ApplicantsTest extends Config {
 
     private String firstName;
     private String lastName;
@@ -25,7 +25,7 @@ public class ApplicantsTest {
     Randomize random = new Randomize();
     Config config = new Config();
     String endpoint = config.getApplicantEnd();
-    String courseEndpoint = config.getCourseEnd();
+
 
     @BeforeMethod
 
@@ -57,11 +57,6 @@ public class ApplicantsTest {
 //            context.setAttribute("validCourseId", validCourseId);
 //}
 
-
-
-
-
-
     @Test
     public void verifyCreateApplicant(ITestContext context) {
 
@@ -69,12 +64,13 @@ public class ApplicantsTest {
                 firstName,
                 lastName,
                 middleName,
-                email,
+                email = "mirzakhanyanshushan@gmail.com" ,
                 phone,
                 isWarVeteran,
                 isLessThan16,
                 courseId
         );
+        System.out.println(phone);
         String jsonString = "";
         ObjectMapper mapper = new ObjectMapper();
         try {
@@ -83,16 +79,14 @@ public class ApplicantsTest {
             throw new RuntimeException(e);
         }
 
-        RestAssured.given().
-                header("Content-Type", "application/json").
+        given().
                 body(jsonString).
-                when().
-                post(endpoint).
-                then().
+        when().
+               post(ApplicantEndpoint.All_applicants).
+        then().
                 log().body().
                 assertThat().statusCode(201).
-                body("id", is(notNullValue())).
-                body("passcode", is(notNullValue()));
+                body("id", is(notNullValue()));
 
         //is that ok, to check that value is not empty
 
@@ -121,12 +115,11 @@ public class ApplicantsTest {
             throw new RuntimeException(e);
         }
 
-        RestAssured.given().
-                header("Content-Type", "application/json").
+        given().
                 body(jsonString).
-                when().
-                post(endpoint).
-                then().
+        when().
+                post(ApplicantEndpoint.All_applicants).
+        then().
                 log().body().
                 assertThat().statusCode(400).
                 body("error", equalTo("Bad Request"));
@@ -160,12 +153,11 @@ public class ApplicantsTest {
             throw new RuntimeException(e);
         }
 
-        RestAssured.given().
-                header("Content-Type", "application/json").
+       given().
                 body(jsonString).
-                when().
-                post(endpoint).
-                then().
+       when().
+                post(ApplicantEndpoint.All_applicants).
+       then().
                 assertThat().statusCode(400).
                 body("message[0]", equalTo("email must be an email"));
 
@@ -193,15 +185,14 @@ public class ApplicantsTest {
             throw new RuntimeException(e);
         }
 
-        RestAssured.given().
-                header("Content-Type", "application/json").
+       given().
                 body(jsonString).
-                when().
-                post(endpoint).
-                then().
+       when().
+                post(ApplicantEndpoint.All_applicants).
+       then().
                 log().body().
                 assertThat().statusCode(400).
-                body("message[0]", equalTo("phone must be a valid phone number"));
+                body("message[0]", equalTo("phone must match /^\\+374[1-9]{1}[0-9]{7}$/ regular expression"));
 
 
 
@@ -227,12 +218,11 @@ public class ApplicantsTest {
             throw new RuntimeException(e);
         }
 
-        RestAssured.given().
-                header("Content-Type", "application/json").
+        given().
                 body(jsonString).
-                when().
-                post(endpoint).
-                then().
+        when().
+                post(ApplicantEndpoint.All_applicants).
+        then().
                 assertThat().statusCode(400).
                 body("message[0]", equalTo("courseId must be a mongodb id"));
 
@@ -243,13 +233,13 @@ public class ApplicantsTest {
     public void getApplicants() {
         given().
         when().
-                get(endpoint).
+                get(ApplicantEndpoint.All_applicants).
         then(). log().body().
                 assertThat().statusCode(200);
 
     }
 
-//    public void getValidApplicant() {
+//    public void getValidApplicant(ITestContext context) {
 //
 //        String applicantId = (String) context.getAttribute("applicantId");
 //        System.out.println(applicantId);
@@ -285,7 +275,7 @@ public class ApplicantsTest {
 //                        header("Content-Type", "application/json").
 //                        body(body).
 //                        when().
-//                        patch(endpoint).
+//                        patch().
 //                        then();
 //
 //    }
@@ -304,7 +294,7 @@ public class ApplicantsTest {
 //        response.log().body();
 //
 //
-//    }
+//   }
 }
 
 

@@ -11,7 +11,6 @@ public class TestsTest {
     private Integer duration;
     private List<String> questions;
 
-    //Test test = new Test()
 
     Randomize random = new Randomize();
 

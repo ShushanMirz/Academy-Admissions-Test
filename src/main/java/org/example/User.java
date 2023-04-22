@@ -10,13 +10,16 @@ public class User {
     private String password;
     private String role;
 
+    private String phone;
 
-    public User(String firstName, String lastName, String email, String password, String role) {
+
+    public User(String firstName, String lastName, String email, String password, String role, String phone) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.password = password;
         this.role = role;
+        this.phone = phone;
     }
 
     public String toJsonString() throws JsonProcessingException {
@@ -66,6 +69,14 @@ public class User {
         this.role = role;
     }
 
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
     @Override
     public String toString() {
         return "User{" +
@@ -74,7 +85,9 @@ public class User {
                 ", email='" + email + '\'' +
                 ", password='" + password + '\'' +
                 ", role='" + role + '\'' +
+                ", phone='" + phone + '\'' +
                 '}';
     }
+
 
 }
