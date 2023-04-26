@@ -8,9 +8,9 @@ public class User {
     private String lastName;
     private String email;
     private String password;
+    private String phone;
     private String role;
 
-    private String phone;
 
 
     public User(String firstName, String lastName, String email, String password, String role, String phone) {
@@ -22,11 +22,6 @@ public class User {
         this.phone = phone;
     }
 
-    public String toJsonString() throws JsonProcessingException {
-        ObjectMapper objectMapper = new ObjectMapper();
-        return objectMapper.writeValueAsString(this);
-
-    }
 
 
     public String getFirstName() {

@@ -1,45 +1,61 @@
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import io.restassured.*;
-import org.example.Applicant;
-import org.example.ApplicantEndpoint;
-import org.example.Config;
-import org.example.Randomize;
+import org.example.*;
 import org.testng.ITestContext;
 import org.testng.annotations.*;
+import org.testng.annotations.Test;
+
 import java.lang.reflect.Method;
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.*;
 
 public class ApplicantsTest extends Config {
 
-    private String firstName;
-    private String lastName;
-    private String middleName;
-    private String email;
-    private String phone;
-    private boolean isWarVeteran;
-    private boolean isLessThan16;
-    private String courseId;
+    private String firstName = " ";
+    private String lastName = " ";
+    private String middleName = " ";
+    private String email = " ";
+    private String phone = " ";
+    private boolean isWarVeteran = true;
+    private boolean isLessThan16 = true;
+    private String courseId = " ";
 
     Randomize random = new Randomize();
-    Config config = new Config();
-    String endpoint = config.getApplicantEnd();
 
+    Applicant applicant = new Applicant(
+            firstName = random.getRndName(),
+            lastName = random.getRndName(),
+            middleName = random.getRndName(),
+            email = random.getRndEmail(),
+            phone = "+374" + random.getRunPhoneValid(),
+            isWarVeteran = random.getRndBool(),
+            isLessThan16 = random.getRndBool(),
+            courseId = "6449527033002ff8a701ede1"
+    );
+
+    Methods methods = new Methods();
 
     @BeforeMethod
+    public void setToken (Method methodName) {
 
-    public void initData(Method methodName) {
 
-        firstName = random.getRndName();
-        lastName = random.getRndName();
-        middleName = random.getRndName();
-        email = random.getRndEmail();
-        phone = "+374" + random.getRunPhoneValid();
-        isWarVeteran = random.getRndBool();
-        isLessThan16 = random.getRndBool();
-        courseId = "643fe26ed68f43c6e39d1f00";
     }
+
+
+
+//    @BeforeMethod
+//    public void initData(Method methodName) {
+//
+//        firstName = "Shushan";
+//        lastName = "Mirzakhanyan";
+//        middleName = "Atom";
+//        email = "mirzakhanyanshushan@gmail.com";
+//        phone = "+37498775545";
+//        isWarVeteran = random.getRndBool();
+//        isLessThan16 = random.getRndBool();
+//        courseId = "6449527033002ff8a701ede1";
+//    }
+
 
 
 
@@ -58,67 +74,52 @@ public class ApplicantsTest extends Config {
 //}
 
     @Test
-    public void verifyCreateApplicant(ITestContext context) {
+    public void verifyCreateAppNoAuth(ITestContext context) {
 
-        Applicant applicant = new Applicant(
-                firstName,
-                lastName,
-                middleName,
-                email = "mirzakhanyanshushan@gmail.com" ,
-                phone,
-                isWarVeteran,
-                isLessThan16,
-                courseId
-        );
-        System.out.println(phone);
-        String jsonString = "";
-        ObjectMapper mapper = new ObjectMapper();
-        try {
-            jsonString = mapper.writeValueAsString(applicant);
-        } catch (JsonProcessingException e) {
-            throw new RuntimeException(e);
-        }
+//
+//        String jsonString = "";
+//        ObjectMapper mapper = new ObjectMapper();
+//        try {
+//            jsonString = mapper.writeValueAsString(applicant);
+//        } catch (JsonProcessingException e) {
+//            throw new RuntimeException(e);
+//        }
+
 
         given().
-                body(jsonString).
+                body(methods.toJsonString(applicant)).
+
         when().
-               post(ApplicantEndpoint.All_applicants).
+               post(AllEndpoints.All_Applicants).
         then().
-                log().body().
                 assertThat().statusCode(201).
-                body("id", is(notNullValue()));
+                body("message", equalTo("Applicant successfully registered."));
 
-        //is that ok, to check that value is not empty
-
-        System.out.println(phone);
 
 
     }
     @Test
     public void verifyCreateApplicantEmptyData(ITestContext context) {
 
-        Applicant applicant = new Applicant(
-                firstName = " ",
-                lastName = " ",
-                middleName = " ",
-                email = " ",
-                phone = " ",
-                isWarVeteran,
-                isLessThan16,
-                courseId = " "
-        );
-        String jsonString = "";
-        ObjectMapper mapper = new ObjectMapper();
-        try {
-            jsonString = mapper.writeValueAsString(applicant);
-        } catch (JsonProcessingException e) {
-            throw new RuntimeException(e);
-        }
+
+                firstName = " ";
+                lastName = " ";
+                middleName = " ";
+                email = " ";
+                phone = " ";
+                courseId = " ";
+//        String jsonString = "";
+//        ObjectMapper mapper = new ObjectMapper();
+//        try {
+//            jsonString = mapper.writeValueAsString(applicant);
+//        } catch (JsonProcessingException e) {
+//            throw new RuntimeException(e);
+//        }
 
         given().
-                body(jsonString).
+                body(methods.toJsonString(applicant)).
         when().
-                post(ApplicantEndpoint.All_applicants).
+                post(AllEndpoints.All_Applicants).
         then().
                 log().body().
                 assertThat().statusCode(400).
@@ -156,7 +157,7 @@ public class ApplicantsTest extends Config {
        given().
                 body(jsonString).
        when().
-                post(ApplicantEndpoint.All_applicants).
+                post(AllEndpoints.All_Applicants).
        then().
                 assertThat().statusCode(400).
                 body("message[0]", equalTo("email must be an email"));
@@ -166,6 +167,7 @@ public class ApplicantsTest extends Config {
     @Test
 
     public void verifyCreateApplicantPhoneNotValid() {
+
 
         Applicant applicant = new Applicant(
                 firstName,
@@ -188,7 +190,7 @@ public class ApplicantsTest extends Config {
        given().
                 body(jsonString).
        when().
-                post(ApplicantEndpoint.All_applicants).
+                post(AllEndpoints.All_Applicants).
        then().
                 log().body().
                 assertThat().statusCode(400).
@@ -221,7 +223,7 @@ public class ApplicantsTest extends Config {
         given().
                 body(jsonString).
         when().
-                post(ApplicantEndpoint.All_applicants).
+                post(AllEndpoints.All_Applicants).
         then().
                 assertThat().statusCode(400).
                 body("message[0]", equalTo("courseId must be a mongodb id"));
@@ -233,7 +235,7 @@ public class ApplicantsTest extends Config {
     public void getApplicants() {
         given().
         when().
-                get(ApplicantEndpoint.All_applicants).
+                get(AllEndpoints.All_Applicants).
         then(). log().body().
                 assertThat().statusCode(200);
 
@@ -254,33 +256,38 @@ public class ApplicantsTest extends Config {
 //    }
 //
 //
-//    @AfterMethod
-//    public void updateApplicant(ITestContext context) {
-//        String applicantId = (String) context.getAttribute("applicantId");
-//        String endpoint = "http://localhost:3000/users/{applicantId}";
-//        String body = """
-//                 {
-//                 "firstName": "Shush",
-//                 "lastName": "Mirzakhan",
-//                 "middleName": "Atom",
-//                 "email": "mirzakhanyanshushan@gmail.com",
-//                 "phone": "+37498775544",
-//                 "isWarVeteran": true,
-//                 "isLessThan16": true
-//                }
-//                """;
-//        var response =
-//                given().
-//                        pathParam("applicantId", applicantId).
-//                        header("Content-Type", "application/json").
-//                        body(body).
-//                        when().
-//                        patch().
-//                        then();
-//
-//    }
-//
-//
+    @Test
+    public void updateApplicant(ITestContext context) {
+        String endpoint = "http://localhost:3000/applicants/6440214e92d008367a0edaca";
+        String body = """
+                 {
+                 "firstName": "Sha",
+                 "lastName": "Mi",
+                 "middleName": "At",
+                 "email": "mirzakhanyanshushan@gmail.com",
+                 "phone": "+37498775545",
+                 "isWarVeteran": false,
+                 "isLessThan16": false,
+                 "courseId": "6442a7616cb32f32d7d4f520",
+                 "courses": [
+                     "string"
+                   ],
+                   "notes": [
+                     "string"
+                   ]
+                   
+                }
+                """;
+        var response =
+                given().
+                        body(body).
+                        when().
+                        patch(endpoint).
+                        then();
+
+    }
+
+
 //    @AfterMethod
 //    public void deleteApplicant(ITestContext context) {
 //        String applicantId = (String) context.getAttribute("applicantId");

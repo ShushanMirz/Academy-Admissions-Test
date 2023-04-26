@@ -1,8 +1,5 @@
-
 import org.testng.annotations.Test;
 import org.testng.ITestContext;
-
-
 import static io.restassured.RestAssured.given;
 
 public class CoursesTest {
@@ -19,6 +16,7 @@ public class CoursesTest {
                    "url": "https://www.youtube.com/watch?v=e74zROBrIKg"
                        }
                   }
+                  
                 """;
                 given().
                         header("Content-Type", "application/json").

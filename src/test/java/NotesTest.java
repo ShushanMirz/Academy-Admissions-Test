@@ -9,9 +9,13 @@ public class NotesTest {
     public void createNote(ITestContext context) {
         String endpoint = "http://localhost:3000/note";
         String body = """ 
-                { 
-                 "name": "The first note"
-                 }
+                {
+                  "subject": "string",
+                  "author": "string",
+                  "applicant": "string",
+                  "text": "string",
+                  "courseTitle": "string"
+                }
                 """;
         var response =
                 given().
@@ -54,9 +58,13 @@ public class NotesTest {
     public void updateNote() {
         String endpoint = "http://localhost:3000/note/{id}";
         String body = """ 
-                { 
-                 "name": "The updated phase"
-                }
+                {
+                   "subject": "string",
+                   "author": "string",
+                   "applicant": "string",
+                   "text": "string",
+                   "courseTitle": "string"
+                 }
                 """;
         var response =
                 given().

@@ -49,7 +49,7 @@ public class UsersTest {
         var response =
                 given().
                         header("Content-Type", "application/json").
-                        header("Authorization", "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im1pcnpha2hhbnlhbnNodXNoYW5AZ21haWwuY29tIiwiaWQiOiI2NDM0Mjk5MGNkMDRmMDlhZWUwNDQ5YzMiLCJpYXQiOjE2ODIxODM0NjMsImV4cCI6MTY4NDc3NTQ2M30.s4-Loa7R9D2GTeJgXCjEXBYTPLminFw1ub_uWNG0EQE" ).
+                        header("Authorization", "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im1pcnpha2hhbnlhbnNodXNoYW5AZ21haWwuY29tIiwiaWQiOiI2NDM0Mjk5MGNkMDRmMDlhZWUwNDQ5YzMiLCJpYXQiOjE2ODI1Mjg2OTcsImV4cCI6MTY4NTEyMDY5N30.ArMN4Zu7sqgw3qpxXgP-ZyykvxodF3hvQXD_akZ2WCE").
                         body(jsonString).
                 when().
                         post(endpoint).
@@ -102,25 +102,25 @@ public class UsersTest {
 //
 //    }
 
-    @Test
-    public void updateUser() {
-        String endpoint = "http://localhost:3000/users/{id}";
-        String body = """ 
-                { 
-                   "role": "Admin"
-                }
-                """;
-        var response =
-                given().
-                        pathParam("id", "64342990cd04f09aee0449c3").
-                        header("Content-Type", "application/json").
-                        body(body).
-                        when().
-                        patch(endpoint).
-                        then();
-        response.log().body();
-
-    }
+//    @Test
+//    public void updateUser() {
+//        String endpoint = "http://localhost:3000/users/{id}";
+//        String body = """
+//                {
+//                   "role": "Admin"
+//                }
+//                """;
+//        var response =
+//                given().
+//                        pathParam("id", "64342990cd04f09aee0449c3").
+//                        header("Content-Type", "application/json").
+//                        body(body).
+//                        when().
+//                        patch(endpoint).
+//                        then();
+//        response.log().body();
+//
+//    }
 
 //    @Test
 //    public void deleteUser() {

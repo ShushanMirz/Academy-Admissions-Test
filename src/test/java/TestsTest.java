@@ -1,23 +1,61 @@
-import com.fasterxml.jackson.annotation.JsonProperty;
-import org.example.Randomize;
-import org.example.Test;
-
-import java.lang.reflect.Method;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import org.example.AllEndpoints;
+import org.example.Config;
+import org.testng.annotations.Test;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import static io.restassured.RestAssured.given;
 
-public class TestsTest {
+public class TestsTest extends Config {
+    @Test  public void createTest() {
 
-    private String title;
-    private Integer duration;
-    private List<String> questions;
+            List<Map<String, Object>> questions = new ArrayList<>();
+            ArrayList<Object> answers = new ArrayList<Object>();
+            ArrayList<Object> correctAnswers = new ArrayList<Object>();
+            questions.add(new HashMap<>() {{
+                put("type", "string");
+                put("question", "string");
+                put("required", true);
+                put("image", "string");
+                put("answers", answers);
+                put("correctAnswers", correctAnswers);
+                put("maxScore", 10);
+            }});
+
+                answers.add(1);
+                answers.add("a");
+                correctAnswers.add(1);
+                correctAnswers.add("b");
+
+            Map<String, Object> body = new HashMap<>() {{
+                put("title", "String11");
+                put("duration", 10);
+                put("questions", questions);
+
+            }};
 
 
-    Randomize random = new Randomize();
+            ObjectMapper objectMapper = new ObjectMapper();
+            String jsonString = "";
+            try {
+                jsonString = objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(body);
+            } catch (Exception e) {
+                e.printStackTrace();
 
-    public void initData() {
+            }
+        String token = "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im1pcnpha2hhbnlhbnNodXNoYW5AZ21haWwuY29tIiwiaWQiOiI2NDM0Mjk5MGNkMDRmMDlhZWUwNDQ5YzMiLCJpYXQiOjE2ODI0NDczNzcsImV4cCI6MTY4NTAzOTM3N30.r3-59YmaWCQhM8NKbGAcjAlqfhub61CjytRbCBqP_tY";
 
-        title = random.getRndName();
-        duration = 12;
-       // questions = "";
-    }
+        given().
+                header("Authorization", token).
+                    body(jsonString).
+            when().
+                    post(AllEndpoints.All_Tests).
+            then().
+                    assertThat().statusCode(201);
+
+        }
+
 }
+
