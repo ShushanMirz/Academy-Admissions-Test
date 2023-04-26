@@ -1,5 +1,4 @@
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.checkerframework.checker.units.qual.C;
 import org.example.AllEndpoints;
 import org.example.Config;
 import org.testng.annotations.Test;
@@ -10,7 +9,7 @@ import java.util.Map;
 
 import static io.restassured.RestAssured.given;
 
-public class Question extends Config {
+public class QuestionsTest extends Config {
     @Test
     public void createQuestion()
     {

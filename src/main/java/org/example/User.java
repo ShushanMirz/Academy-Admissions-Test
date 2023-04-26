@@ -3,7 +3,7 @@ package org.example;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-public class User {
+public class User { //multipart/form-data
     private String firstName;
     private String lastName;
     private String email;

@@ -3,7 +3,6 @@ import org.testng.ITestContext;
 import static io.restassured.RestAssured.given;
 
 public class CoursesTest {
-    private String id;
 
     @Test
     public void createCourse(ITestContext context) {

@@ -4,7 +4,6 @@ import org.example.*;
 import org.testng.ITestContext;
 import org.testng.annotations.*;
 import org.testng.annotations.Test;
-
 import java.lang.reflect.Method;
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.*;
@@ -58,21 +57,6 @@ public class ApplicantsTest extends Config {
 
 
 
-
-//        public void getCoursesIdForCreationApplicant(ITestContext context) {
-//            List<String> validCourseId =
-//                    given().
-//                    when().
-//                            get(courseEndpoint).
-//                    then().
-//                    log().
-//                    all().
-//                    extract().
-//                    jsonPath().
-//                    get();
-//            context.setAttribute("validCourseId", validCourseId);
-//}
-
     @Test
     public void verifyCreateAppNoAuth(ITestContext context) {
 
@@ -108,13 +92,13 @@ public class ApplicantsTest extends Config {
                 email = " ";
                 phone = " ";
                 courseId = " ";
-//        String jsonString = "";
-//        ObjectMapper mapper = new ObjectMapper();
-//        try {
-//            jsonString = mapper.writeValueAsString(applicant);
-//        } catch (JsonProcessingException e) {
-//            throw new RuntimeException(e);
-//        }
+        String jsonString = "";
+        ObjectMapper mapper = new ObjectMapper();
+        try {
+            jsonString = mapper.writeValueAsString(applicant);
+        } catch (JsonProcessingException e) {
+            throw new RuntimeException(e);
+       }
 
         given().
                 body(methods.toJsonString(applicant)).
@@ -124,13 +108,7 @@ public class ApplicantsTest extends Config {
                 log().body().
                 assertThat().statusCode(400).
                 body("error", equalTo("Bad Request"));
-        //         should I check all type of messages, example  "firstName must be longer than or equal to 2 characters",
-        //        "lastName must be longer than or equal to 2 characters",
-        //        "middleName must be longer than or equal to 2 characters",
-        //        "email must be an email",
-        //        "email must be longer than or equal to 2 characters",
-        //        "phone must be a valid phone number",
-        //        "courseId must be a mongodb id"
+
     }
 
     @Test
@@ -288,20 +266,20 @@ public class ApplicantsTest extends Config {
     }
 
 
-//    @AfterMethod
-//    public void deleteApplicant(ITestContext context) {
-//        String applicantId = (String) context.getAttribute("applicantId");
-//        String endpoint = "http://localhost:3000/applicants/{applicantId}";
-//        var response =
-//                given().
-//                        pathParam("applicantId", applicantId).
-//                        when().
-//                        delete(endpoint).
-//                        then();
-//        response.log().body();
-//
-//
-//   }
+    @Test
+    public void deleteApplicantAuth(ITestContext context) {
+        String applicantId = (String) context.getAttribute("applicantId");
+        String endpoint = "http://localhost:3000/applicants/{applicantId}";
+        var response =
+                given().
+                        pathParam("applicantId", applicantId).
+                        when().
+                        delete(endpoint).
+                        then();
+        response.log().body();
+
+
+   }
 }
 
 

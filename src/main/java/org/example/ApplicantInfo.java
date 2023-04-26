@@ -2,7 +2,7 @@ package org.example;
 
 import java.util.List;
 
-public class ApplicantInfo {
+public class ApplicantInfo { //multipart/form-data
    private String  education;
 
     private String workExperience;
