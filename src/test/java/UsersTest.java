@@ -1,12 +1,14 @@
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.example.User;
+import org.example.*;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
+import java.lang.reflect.Method;
+
 import static io.restassured.RestAssured.given;
 
-public class UsersTest {
+public class UsersTest extends Config {
     private String firstName;
     private String lastName;
     private String email;
@@ -14,48 +16,81 @@ public class UsersTest {
     private String role;
     private  String phone;
 
-
-
+    Randomize random = new Randomize();
+    Methods methods = new Methods();
+    User user;
 
     @BeforeMethod
-    public void initData() {
-        firstName = "Shushan1";
-        lastName = "Mirzakhanyan1";
-        email = "shushan.com@rambler.ru";
-        password = "Aa123456";
-        role = "User";
-        phone = "+37498775545";
+    public void initData(Method methodName) {
 
-    }
-    @Test
-    public void createUser() {
-        String endpoint = "http://localhost:3000/users";
-        User user = new User(
+        firstName = random.getRndName();
+        lastName = random.getRndName();
+        email = random.getRndEmail();
+        phone = "+374" + random.getRunPhoneValid();
+        role = " ";
+        password = " ";
+
+
+        user  = new User(
                 firstName,
                 lastName,
                 email,
                 password,
                 role,
                 phone
-        ) ;
 
-        String jsonString = "";
-        ObjectMapper mapper = new ObjectMapper();
-        try {
-            jsonString = mapper.writeValueAsString(user);
-        } catch (JsonProcessingException e) {
-            throw new RuntimeException(e);
-        }
-        var response =
-                given().
-                        header("Content-Type", "application/json").
-                        header("Authorization", "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im1pcnpha2hhbnlhbnNodXNoYW5AZ21haWwuY29tIiwiaWQiOiI2NDM0Mjk5MGNkMDRmMDlhZWUwNDQ5YzMiLCJpYXQiOjE2ODI1Mjg2OTcsImV4cCI6MTY4NTEyMDY5N30.ArMN4Zu7sqgw3qpxXgP-ZyykvxodF3hvQXD_akZ2WCE").
-                        body(jsonString).
-                when().
-                        post(endpoint).
-                then();
-        response.log().body();
+        );
     }
+    @Test
+    public void verifyCreateUserAdmin() {
+
+
+
+                given().
+                        body(methods.toJsonString(user)).
+                when().
+                        post(AllEndpoints.All_Users).
+                then();
+
+    }
+
+
+    @Test
+    public void verifyCreateUserUnauthorized() {
+
+
+        given().
+                body(methods.toJsonString(user)).
+                when().
+                post(AllEndpoints.All_Users).
+                then();
+
+    }
+        @Test
+        public void verifyCreateUserAdminSameEmail() {
+
+        //should take already existed email
+         given().
+                    body(methods.toJsonString(user)).
+         when().
+                    post(AllEndpoints.All_Users).
+         then();
+
+        }
+
+    @Test
+    public void verifyGetUserID() {
+
+        //should take already existed email
+        given().
+                body(methods.toJsonString(user)).
+        when().
+                get(AllEndpoints.Single_User).
+        then();
+
+    }
+
+}
 
 //    @Test
 //    public void createSerializedUser() throws JsonProcessingException {
@@ -135,5 +170,5 @@ public class UsersTest {
 //
 //
 //    }
-}
+
 

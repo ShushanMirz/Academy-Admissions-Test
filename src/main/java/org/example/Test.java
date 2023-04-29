@@ -3,9 +3,9 @@ public class Test {
 
 
         private String title;
-        private Integer duration;
+        private int duration;
 
-        public Test(String title, Integer duration) {
+        public Test(String title, int duration) {
             this.title = title;
             this.duration = duration;
         }
@@ -26,7 +26,7 @@ public class Test {
         }
 
 
-        public void setDuration(Integer duration) {
+        public void setDuration(int duration) {
             this.duration = duration;
         }
 

@@ -1,8 +1,13 @@
+import org.example.Methods;
+import org.example.Randomize;
 import org.testng.annotations.Test;
 import org.testng.ITestContext;
 import static io.restassured.RestAssured.given;
 
 public class CoursesTest {
+
+    Randomize random = new Randomize();
+    Methods methods = new Methods();
 
     @Test
     public void createCourse(ITestContext context) {

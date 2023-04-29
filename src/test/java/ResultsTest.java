@@ -1,8 +1,8 @@
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.example.AllEndpoints;
-import org.example.Config;
-import org.example.Result;
+import org.example.*;
 import org.junit.jupiter.api.Test;
+import org.testng.annotations.BeforeMethod;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -10,9 +10,29 @@ import java.util.Map;
 
 import static io.restassured.RestAssured.given;
 
-public class ResultsTest extends Result {
+ class ResultsTest extends Config {
 
-    @Test
+     private String applicant;
+     private String test;
+     private String phase;
+     private List<Answer> answers;
+
+     Randomize random = new Randomize();
+     Methods methods = new Methods();
+
+    Result result;
+    Answer answer = new Answer(" ", new ArrayList<>());
+//     @BeforeMethod
+//     public void initData () {
+//         applicant = "",
+//         test = " ",
+//         phase = " ",
+//         answers = answers
+//
+//
+//     }
+
+     @Test
     public void createResult() {
 
         List<Map<String, Object>> answers = new ArrayList<>();

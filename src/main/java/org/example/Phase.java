@@ -1,4 +1,7 @@
 package org.example;
+
+import java.nio.ByteBuffer;
+
 public class Phase {
 
     private String type;
@@ -9,17 +12,17 @@ public class Phase {
     private String end;
     private String test;
     private String event;
-    private Boolean emailOnStart;
-    private Boolean smsOnStart;
-    private Boolean emailOnSuccess;
-    private Boolean smsOnSuccess;
-    private Boolean emailOnRejection;
-    private Boolean smsOnRejection;
+    private boolean emailOnStart;
+    private boolean smsOnStart;
+    private boolean emailOnSuccess;
+    private boolean smsOnSuccess;
+    private boolean emailOnRejection;
+    private boolean smsOnRejection;
     private String course;
 
 
 
-    public Phase(String type, String title, String description, String body, String start, String end, String test, String event, Boolean emailOnStart, Boolean smsOnStart, Boolean emailOnSuccess, Boolean smsOnSuccess, Boolean emailOnRejection, Boolean smsOnRejection, String course) {
+    public Phase(String type, String title, String description, String body, String start, String end, String test, String event, boolean emailOnStart, boolean smsOnStart, boolean emailOnSuccess, boolean smsOnSuccess, boolean emailOnRejection, boolean smsOnRejection, String course) {
         super();
         this.type = type;
         this.title = title;
@@ -106,7 +109,7 @@ public class Phase {
         return emailOnStart;
     }
 
-    public void setEmailOnStart(Boolean emailOnStart) {
+    public void setEmailOnStart(boolean emailOnStart) {
         this.emailOnStart = emailOnStart;
     }
 
@@ -114,7 +117,7 @@ public class Phase {
         return smsOnStart;
     }
 
-    public void setSmsOnStart(Boolean smsOnStart) {
+    public void setSmsOnStart(boolean smsOnStart) {
         this.smsOnStart = smsOnStart;
     }
 
@@ -122,7 +125,7 @@ public class Phase {
         return emailOnSuccess;
     }
 
-    public void setEmailOnSuccess(Boolean emailOnSuccess) {
+    public void setEmailOnSuccess(boolean emailOnSuccess) {
         this.emailOnSuccess = emailOnSuccess;
     }
 
@@ -130,7 +133,7 @@ public class Phase {
         return smsOnSuccess;
     }
 
-    public void setSmsOnSuccess(Boolean smsOnSuccess) {
+    public void setSmsOnSuccess(boolean smsOnSuccess) {
         this.smsOnSuccess = smsOnSuccess;
     }
 
@@ -138,7 +141,7 @@ public class Phase {
         return emailOnRejection;
     }
 
-    public void setEmailOnRejection(Boolean emailOnRejection) {
+    public void setEmailOnRejection(boolean emailOnRejection) {
         this.emailOnRejection = emailOnRejection;
     }
 
@@ -146,7 +149,7 @@ public class Phase {
         return smsOnRejection;
     }
 
-    public void setSmsOnRejection(Boolean smsOnRejection) {
+    public void setSmsOnRejection(boolean smsOnRejection) {
         this.smsOnRejection = smsOnRejection;
     }
 

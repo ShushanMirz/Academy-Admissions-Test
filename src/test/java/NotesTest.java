@@ -1,3 +1,5 @@
+import org.example.Methods;
+import org.example.Randomize;
 import org.testng.annotations.Test;
 
 import static io.restassured.RestAssured.given;
@@ -5,6 +7,15 @@ import io.restassured.http.ContentType;
 import org.testng.ITestContext;
 
 public class NotesTest {
+
+    private String subject;
+    private String applicant;
+    private String text;
+    private String courseTitle;
+
+
+    Randomize random = new Randomize();
+    Methods methods = new Methods();
     @Test
     public void createNote(ITestContext context) {
         String endpoint = "http://localhost:3000/note";

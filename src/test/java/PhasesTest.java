@@ -1,12 +1,34 @@
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.example.AllEndpoints;
 import org.example.Config;
+import org.example.Methods;
+import org.example.Randomize;
 import org.testng.annotations.Test;
 import java.util.HashMap;
 import java.util.Map;
 import static io.restassured.RestAssured.given;
 
 public class PhasesTest extends Config {
+
+    private String type = " ";
+    private String title = " ";
+    private String description = " ";
+    private String body = " ";
+    private String start = " ";
+    private String end = " ";
+    private String test = " ";
+    private String event = " ";
+    private boolean emailOnStart = false;
+    private boolean smsOnStart = false;
+    private boolean emailOnSuccess = false;
+    private boolean smsOnSuccess = false;
+    private boolean emailOnRejection = false;
+    private boolean smsOnRejection = false;
+    private String course = " ";
+
+    Randomize random = new Randomize();
+    Methods methods = new Methods();
+
     @Test
             public void createPhase()
         {

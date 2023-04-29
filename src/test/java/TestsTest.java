@@ -1,6 +1,8 @@
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.example.AllEndpoints;
 import org.example.Config;
+import org.example.Methods;
+import org.example.Randomize;
 import org.testng.annotations.Test;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -9,6 +11,16 @@ import java.util.Map;
 import static io.restassured.RestAssured.given;
 
 public class TestsTest extends Config {
+
+    private String title = " ";
+    private int duration = 0;
+
+    Randomize random = new Randomize();
+    Methods methods = new Methods();
+
+    org.example.Test test;
+
+
     @Test  public void createTest() {
 
             List<Map<String, Object>> questions = new ArrayList<>();

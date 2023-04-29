@@ -8,10 +8,10 @@ import java.util.List;
         private Boolean required;
         private List<String> answers;
         private List<String> correctAnswers;
-        private Integer maxScore;
+        private int maxScore;
         private String questionImage;
 
-        public Question(String test, String type, String question, Boolean required, List<String> answers, List<String> correctAnswers, Integer maxScore, String questionImage) {
+        public Question(String test, String type, String question, Boolean required, List<String> answers, List<String> correctAnswers, int maxScore, String questionImage) {
             super();
             this.test = test;
             this.type = type;
@@ -75,7 +75,7 @@ import java.util.List;
             return maxScore;
         }
 
-        public void setMaxScore(Integer maxScore) {
+        public void setMaxScore(int maxScore) {
             this.maxScore = maxScore;
         }
 
@@ -87,5 +87,19 @@ import java.util.List;
             this.questionImage = questionImage;
         }
 
+
+        @Override
+        public String toString() {
+            return "Question{" +
+                    "test='" + test + '\'' +
+                    ", type='" + type + '\'' +
+                    ", question='" + question + '\'' +
+                    ", required=" + required +
+                    ", answers=" + answers +
+                    ", correctAnswers=" + correctAnswers +
+                    ", maxScore=" + maxScore +
+                    ", questionImage='" + questionImage + '\'' +
+                    '}';
+        }
     }
 

@@ -1,13 +1,18 @@
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.example.AllEndpoints;
 import org.example.Config;
+import org.example.Methods;
 import org.example.Randomize;
 import org.testng.annotations.Test;
 import java.util.*;
 import static io.restassured.RestAssured.given;
 
 public class EventsTest extends Config {
-    Randomize randomize = new Randomize();
+
+
+    Randomize random = new Randomize();
+    Methods methods = new Methods();
+
 
      @Test
      public void verifyCreateEvent () {
